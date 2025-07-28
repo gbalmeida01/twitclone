@@ -18,6 +18,9 @@ public class PostController {
     @PostMapping
     public ResponseEntity<?> createPost(@RequestBody CreatePostRequest request) {
         postService.createPost(request);
-        return ResponseEntity.status(HttpStatus.CREATED).build();
+        System.out.println("Requisição recebida: " + request);
+
+        return ResponseEntity.status(HttpStatus.CREATED).body("Post criado com sucesso");
+
     }
 }

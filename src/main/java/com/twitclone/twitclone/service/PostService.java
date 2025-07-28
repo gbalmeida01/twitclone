@@ -7,7 +7,9 @@ import com.twitclone.twitclone.entity.User;
 import com.twitclone.twitclone.repository.PostRepository;
 import com.twitclone.twitclone.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.time.LocalDateTime;
 
@@ -20,8 +22,7 @@ public class PostService {
 
     public void createPost(CreatePostRequest request) {
         User user = userRepository.findById(request.getUserId())
-                .orElseThrow(() -> new RuntimeException("Usuário não encontrado"));
-
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Usuário não encontrado"));
         Post post = new Post();
         post.setContent(request.getContent());
         post.setUser(user);
